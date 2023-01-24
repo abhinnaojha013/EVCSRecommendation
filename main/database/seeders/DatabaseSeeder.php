@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -22,22 +23,38 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+
+        $now = Carbon::now();
+
+        $this->call([
+            ProvinceSeeder::class,
+            RoleSeeder::class,
+            DistrictSeeder::class,
+            MetropolitanSeeder::class,
+        ]);
         DB::table('users')->insert([
             'name' => 'abhinna',
             'email' => 'abhinna@oic.com',
-            'password' => bcrypt('111111111')
+            'password' => bcrypt('111111111'),
+            'role' => '1',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
         DB::table('users')->insert([
             'name' => 'rajat',
             'email' => 'rajat@oic.com',
-            'password' => bcrypt('111111111')
+            'password' => bcrypt('111111111'),
+            'role' => '1',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
         DB::table('users')->insert([
             'name' => 'bipin',
             'email' => 'bipin@oic.com',
-            'password' => bcrypt('111111111')
+            'password' => bcrypt('111111111'),
+            'role' => '1',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
     }
 }
