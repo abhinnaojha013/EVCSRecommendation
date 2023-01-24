@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('districts', function (Blueprint $table) {
-            $table->id();
-            $table->string('district_name');
-            $table->unsignedBigInteger('province');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('phone')->nullable();
+            $table->unsignedBigInteger('role');
 
-            $table->foreign('province')->references('id')->on('provinces');
+            $table->foreign('role')->references('id')->on('roles');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('districts');
+        //
     }
 };

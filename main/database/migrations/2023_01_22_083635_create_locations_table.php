@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('street');
-            $table->string('city');
-            $table->unsignedBigInteger('district');
+            $table->unsignedBigInteger('metropolitan');
+            $table->integer('ward_number');
             $table->timestamps();
 
-            $table->foreign('district')->references('id')->on('districts');
+            $table->foreign('metropolitan')->references('id')->on('metropolitans');
         });
     }
 

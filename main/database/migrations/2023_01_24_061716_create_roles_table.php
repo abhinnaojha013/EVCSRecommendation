@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('districts', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('district_name');
-            $table->unsignedBigInteger('province');
+            $table->string('role_name');
             $table->timestamps();
-
-            $table->foreign('province')->references('id')->on('provinces');
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('districts');
+        Schema::dropIfExists('roles');
     }
 };
