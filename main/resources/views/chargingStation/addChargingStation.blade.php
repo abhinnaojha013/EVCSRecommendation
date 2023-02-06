@@ -56,10 +56,74 @@
                             <label for="ward_number">Ward:</label>
                         </td>
                         <td>
-                            <input type="number" id="ward_number" name="ward_number" step="1" min="1" max="32" in required/>
+                            <input type="number" id="ward_number" name="ward_number" step="1" min="1" max="32" required/>
                             <span id="ward_max"></span>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <label for="ac_ports_fast">Fast Charging AC Ports:</label>
+                        </td>
+                        <td>
+                            <input type="number" id="ac_ports_fast" name="ac_ports_fast" step="1" min="0" required/>
+                            <span id="ac_ports_fast"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="ac_ports_fast">Fast Charging DC Ports:</label>
+                        </td>
+                        <td>
+                            <input type="number" id="dc_ports_fast" name="dc_ports_fast" step="1" min="0" required/>
+                            <span id="dc_ports_fast"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="ac_ports_regular">Regular AC Ports:</label>
+                        </td>
+                        <td>
+                            <input type="number" id="ac_ports_regular" name="ac_ports_regular" step="1" min="0" required/>
+                            <span id="ac_ports_regular"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="dc_ports_regular">Regular DC Ports:</label>
+                        </td>
+                        <td>
+                            <input type="number" id="dc_ports_regular" name="dc_ports_regular" step="1" min="0" required/>
+                            <span id="dc_ports_regular"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="nearest_restaurant">Nearest Restaurant:</label>
+                        </td>
+                        <td>
+                            <input type="number" id="nearest_restaurant" name="nearest_restaurant" min="0" required/>
+                            <span id="nearest_restaurant"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="nearest_shopping_mall">Nearest Shopping Mall:</label>
+                        </td>
+                        <td>
+                            <input type="number" id="nearest_shopping_mall" name="nearest_shopping_mall" min="0" required/>
+                            <span id="nearest_shopping_mall"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="nearest_cinema_hall">Nearest Cinema Hall:</label>
+                        </td>
+                        <td>
+                            <input type="number" id="nearest_cinema_hall" name="nearest_cinema_hallnearest_cinema_hall" min="0" required/>
+                            <span id="nearest_cinema_hall"></span>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td><!-- dummy td--></td>
                         <td>
@@ -76,7 +140,7 @@
         $('#province').change(function () {
             $.ajax({
                type: 'POST',
-                url: '/Charging-Station/getDistricts',
+                url: '/district/getDistricts',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -97,7 +161,7 @@
         $('#district').change(function () {
             $.ajax({
                 type: 'POST',
-                url: '/Charging-Station/getMetropolitans',
+                url: '/metropolitan/getMetropolitans',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -118,7 +182,7 @@
         $('#metropolitan').change(function () {
             $.ajax({
                 type: 'POST',
-                url: '/Charging-Station/getWards',
+                url: '/metropolitan/getWards',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
