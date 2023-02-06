@@ -21,12 +21,24 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
+// charging  station routes
+Route::get('/Charging-Station/index', [\App\Http\Controllers\ChargingStationController::class, 'index'])
+    ->name('chargingStation.index');
 Route::get('/Charging-Station/create', [\App\Http\Controllers\ChargingStationController::class, 'create'])
     ->name('chargingStation.create');
 Route::post('/Charging-Station/store', [\App\Http\Controllers\ChargingStationController::class, 'store'])
     ->name('chargingStation.store');
-Route::post('/Charging-Station/getDistricts', [\App\Http\Controllers\ChargingStationController::class, 'getDistricts']);
-Route::post('/Charging-Station/getMetropolitans', [\App\Http\Controllers\ChargingStationController::class, 'getMetropolitans']);
-Route::post('/Charging-Station/getWards', [\App\Http\Controllers\ChargingStationController::class, 'getWards']);
+
+//rating routes
+Route::get('/rate', [\App\Http\Controllers\RatingController::class, 'provideRating'])
+    ->name('rating.provide');
+Route::post('/submitRating', [\App\Http\Controllers\RatingController::class, 'addRating'])
+    ->name('rating.add');
+
+// ajax routes
+Route::post('/district/getDistricts', [\App\Http\Controllers\DistrictController::class, 'getDistricts']);
+Route::post('/metropolitan/getMetropolitans', [\App\Http\Controllers\MetropolitanController::class, 'getMetropolitans']);
+Route::post('/metropolitan/getWards', [\App\Http\Controllers\MetropolitanController::class, 'getWards']);
+Route::post('/chargingStation/getChargingStations', [\App\Http\Controllers\ChargingStationController::class, 'getChargingStations']);
+
+
