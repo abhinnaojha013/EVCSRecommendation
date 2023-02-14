@@ -15,7 +15,16 @@ class RatingController extends Controller
     }
 
     function addRating(Request $request) {
-        $ratingModel = new Ratings();
-        $ratingModel->insertRating($request);
+        try {
+            $ratingModel = new Ratings();
+            $ratingModel->insertRating($request);
+
+            request()->session()->flash('success', 'Rating successfully provided.');
+            // index of user
+            return redirect()->route('');
+        } catch (\Exception $exception) {
+            request()->session()->flash('error', 'Rating provision failed.');
+            return redirect()->route('rating.provide');
+        }
     }
 }

@@ -44,8 +44,12 @@ class ChargingStationController extends Controller
             $chargingStation = $chargingStationModel->insertChargingStation($request, $location_id);
 
             $this->calculateSimilarityScores($chargingStation);
-        } catch (Exception $exception) {
 
+            request()->session()->flash('success', 'Charging station creation success');
+            return redirect()->route('chargingStation.index');
+        } catch (Exception $exception) {
+            request()->session()->flash('error', 'Charging station creation failed');
+            return redirect()->route('chargingStation.create');
         }
     }
 
@@ -62,21 +66,25 @@ class ChargingStationController extends Controller
         $referenceChargingStation = $chargingStationModel->selectReferenceChargingStation($id);
         $chargingStations = $chargingStationModel->selectBelowId($id);
 
+            foreach ($chargingStations as $chargingStation) {
+                $ab = $chargingStation->ac_ports_fast * $referenceChargingStation[0]->ac_ports_fast +
+                    $chargingStation->dc_ports_fast * $referenceChargingStation[0]->dc_ports_fast +
+                    $chargingStation->ac_ports_regular * $referenceChargingStation[0]->ac_ports_regular +
+                    $chargingStation->dc_ports_regular * $referenceChargingStation[0]->dc_ports_regular;
 
-        $similarityScore = null;
+                $aSquared = $chargingStation->ac_ports_fast * $chargingStation->ac_ports_fast +
+                    $chargingStation->dc_ports_fast * $chargingStation->dc_ports_fast +
+                    $chargingStation->ac_ports_regular * $chargingStation->ac_ports_regular +
+                    $chargingStation->dc_ports_regular * $chargingStation->dc_ports_regular;
 
-        foreach ($chargingStations as $chargingStation) {
-            $ac_fast = $chargingStation->ac_ports_fast * $referenceChargingStation[0]->ac_ports_fast;
-            $dc_fast = $chargingStation->dc_ports_fast * $referenceChargingStation[0]->dc_ports_fast;
-            $ac_ports_regular = $chargingStation->ac_ports_regular * $referenceChargingStation[0]->ac_ports_regular;
-            $dc_ports_regular = $chargingStation->dc_ports_regular * $referenceChargingStation[0]->dc_ports_regular;
+                $bSquared = $referenceChargingStation[0]->ac_ports_fast * $referenceChargingStation[0]->ac_ports_fast +
+                    $referenceChargingStation[0]->dc_ports_fast * $referenceChargingStation[0]->dc_ports_fast +
+                    $referenceChargingStation[0]->ac_ports_regular * $referenceChargingStation[0]->ac_ports_regular +
+                    $referenceChargingStation[0]->dc_ports_regular * $referenceChargingStation[0]->dc_ports_regular;
 
+                $similarityScore = $ab / (sqrt($aSquared) * sqrt($bSquared));
 
-//            $ab = ;
-//            $a = ;
-//            $b = ;
-            $similarityScoresModel->insertSimilarityScore($referenceChargingStation->id, $chargingStation->id, $similarityScore);
+                $similarityScoresModel->insertSimilarityScore($referenceChargingStation[0]->id, $chargingStation->id, $similarityScore);
         }
-
     }
 }
