@@ -32,7 +32,7 @@ Route::post('/Charging-Station/store', [\App\Http\Controllers\ChargingStationCon
 //rating routes
 Route::get('/rate', [\App\Http\Controllers\RatingController::class, 'provideRating'])
     ->name('rating.provide');
-Route::post('/submitRating', [\App\Http\Controllers\RatingController::class, 'addRating'])
+Route::post('/addRating', [\App\Http\Controllers\RatingController::class, 'addRating'])
     ->name('rating.add');
 
 // ajax routes
