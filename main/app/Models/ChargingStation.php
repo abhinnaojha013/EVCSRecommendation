@@ -57,7 +57,7 @@ class ChargingStation extends Model
     function selectBelowId($id) {
         return DB::table('charging_stations')
             ->select(
-                'availability',
+                'id',
                 'charging_station_name',
                 'location',
                 'ac_ports_fast',
@@ -75,7 +75,7 @@ class ChargingStation extends Model
     function selectReferenceChargingStation($id) {
         return DB::table('charging_stations')
             ->select(
-                'availability',
+                'id',
                 'charging_station_name',
                 'location',
                 'ac_ports_fast',
