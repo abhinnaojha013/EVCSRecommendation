@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user');
             $table->unsignedBigInteger('charging_station');
+            $table->integer('rating');
             $table->timestamps();
 
             $table->foreign('user')->references('id')->on('users');

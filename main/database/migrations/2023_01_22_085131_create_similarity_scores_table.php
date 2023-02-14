@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('charging_station_1');
             $table->unsignedBigInteger('charging_station_2');
+            $table->unsignedDouble('similarity_score');
             $table->timestamps();
 
             $table->foreign('charging_station_1')->references('id')->on('charging_stations');

@@ -17,7 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string("charging_station_name");
             $table->unsignedBigInteger('location');
-            $table->boolean('availability')->default(false);
+
+            $table->unsignedInteger('ac_ports_fast');
+            $table->unsignedInteger('dc_ports_fast');
+            $table->unsignedInteger('ac_ports_regular');
+            $table->unsignedInteger('dc_ports_regular');
+//            TODO : make these not default
+            $table->unsignedDouble('nearest_restaurant')->default(0);
+            $table->unsignedDouble('nearest_shopping_mall')->default(0);
+            $table->unsignedDouble('nearest_cinema_hall')->default(0);
+
             $table->timestamps();
 
             $table->foreign('location')->references('id')->on('locations');

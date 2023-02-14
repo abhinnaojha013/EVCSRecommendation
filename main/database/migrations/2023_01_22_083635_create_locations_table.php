@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('metropolitan');
             $table->integer('ward_number');
+            $table->float('latitude');
+            $table->float('longitude');
             $table->timestamps();
 
             $table->foreign('metropolitan')->references('id')->on('metropolitans');
