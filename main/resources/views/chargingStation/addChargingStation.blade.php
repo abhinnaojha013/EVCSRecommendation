@@ -7,6 +7,18 @@
             Add Charging Station
         </h2>
         <div>
+            @if(\Illuminate\Support\Facades\Session::has('success'))
+                <p class="alert alert-success" role="alert">
+                    {{\Illuminate\Support\Facades\Session::get('success')}}
+                </p>
+            @endif
+            @if(\Illuminate\Support\Facades\Session::has('error'))
+                <p class="alert alert-danger" role="alert">
+                    {{\Illuminate\Support\Facades\Session::get('error')}}
+                </p>
+            @endif
+        </div>
+        <div>
             <form method="post" action="{{route('chargingStation.store')}}">
                 @csrf
                 <table>
@@ -71,7 +83,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="ac_ports_fast">Fast Charging DC Ports:</label>
+                            <label for="dc_ports_fast">Fast Charging DC Ports:</label>
                         </td>
                         <td>
                             <input type="number" id="dc_ports_fast" name="dc_ports_fast" step="1" min="0" required/>
@@ -119,7 +131,7 @@
                             <label for="nearest_cinema_hall">Nearest Cinema Hall:</label>
                         </td>
                         <td>
-                            <input type="number" id="nearest_cinema_hall" name="nearest_cinema_hallnearest_cinema_hall" min="0" required/>
+                            <input type="number" id="nearest_cinema_hall" name="nearest_cinema_hall" min="0" required/>
                             <span id="nearest_cinema_hall"></span>
                         </td>
                     </tr>
@@ -132,6 +144,11 @@
                     </tr>
                 </table>
             </form>
+        </div>
+        <div>
+            <a href="{{route('chargingStation.index')}}">
+                <button>Return to index</button>
+            </a>
         </div>
     </section>
 

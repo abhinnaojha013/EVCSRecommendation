@@ -7,6 +7,18 @@
             Charging Stations
         </h2>
         <div>
+            @if(\Illuminate\Support\Facades\Session::has('success'))
+                <p class="alert alert-success" role="alert">
+                    {{\Illuminate\Support\Facades\Session::get('success')}}
+                </p>
+            @endif
+            @if(\Illuminate\Support\Facades\Session::has('error'))
+                <p class="alert alert-danger" role="alert">
+                    {{\Illuminate\Support\Facades\Session::get('error')}}
+                </p>
+            @endif
+        </div>
+        <div>
             <table>
                 <tr>
                     <th>Charging Station Name</th>

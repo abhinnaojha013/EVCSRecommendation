@@ -9,6 +9,18 @@
         <p>
             Please select the location details and the charging station that you wish to provide rating.
         </p>
+        <div>
+            @if(\Illuminate\Support\Facades\Session::has('success'))
+                <p class="alert alert-success" role="alert">
+                    {{\Illuminate\Support\Facades\Session::get('success')}}
+                </p>
+            @endif
+            @if(\Illuminate\Support\Facades\Session::has('error'))
+                <p class="alert alert-danger" role="alert">
+                    {{\Illuminate\Support\Facades\Session::get('error')}}
+                </p>
+            @endif
+        </div>
         <form method="post" action="{{route('rating.add')}}">
             @csrf
             <table>
