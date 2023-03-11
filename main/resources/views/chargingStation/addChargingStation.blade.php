@@ -3,9 +3,11 @@
 
 @section("content")
     <section>
-        <h2>
-            Add Charging Station
-        </h2>
+        <div>
+            <h2>
+                Add Charging Station
+            </h2>
+        </div>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
                 <p class="alert alert-success" role="alert">

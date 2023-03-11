@@ -1,11 +1,13 @@
 @extends("layouts.app")
-@section("title", "Charging Stations")
+@section("title", "Ratings")
 
 @section("content")
     <section>
-        <h2>
-            Charging Stations
-        </h2>
+        <div>
+            <h2>
+                Ratings
+            </h2>
+        </div>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
                 <p class="alert alert-success" role="alert">
@@ -19,21 +21,24 @@
             @endif
         </div>
         <div>
-            <a href="{{route('chargingStation.create')}}">
-                <button>Add a charging station</button>
-            </a>
-        </div>
-        <div>
             <table>
                 <tr>
-                    <th>Charging Station Name</th>
+                    <th>Charging Station</th>
                     <th>Location</th>
+                    <th>Rating</th>
+                    <th><!-- dummy th for edit--></th>
                 </tr>
-                @foreach($data['charging_stations'] as $charging_station)
+                @foreach($data['ratings'] as $ratings)
                     <tr>
-                        <td>{{$charging_station->cs_name}}</td>
+                        <td>{{$ratings->cs_name}}</td>
                         <td>
-                            {{$charging_station->metropolitan}}-{{$charging_station->ward_number}}, {{$charging_station->district}}, {{$charging_station->province}}
+                            {{$ratings->metropolitan}}-{{$ratings->ward_number}}, {{$ratings->district}}, {{$ratings->province}}
+                        </td>
+                        <td>{{$ratings->rating}}</td>
+                        <td>
+                            <a href="">
+                                <button>Edit Rating</button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

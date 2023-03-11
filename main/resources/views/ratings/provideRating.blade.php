@@ -98,7 +98,7 @@
                     </td>
                     <td>
                         <input type="submit" value="Submit rating" id="submit">
-                        <p id="error_submit"></p>
+                        <p id="error_submit" class="alert alert-danger" role="alert" style="display: none"></p>
                     </td>
                 </tr>
             </table>
@@ -247,6 +247,7 @@
         $('#submit').click(function () {
 
             if($('#charging_station').val() == 0) {
+                document.getElementById('error_submit').style.display = 'block';
                 $('#error_submit').html("Please select a charging station.");
                 return false;
             }
