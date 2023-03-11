@@ -30,10 +30,18 @@ Route::post('/Charging-Station/store', [\App\Http\Controllers\ChargingStationCon
     ->name('chargingStation.store');
 
 //rating routes
+Route::get('/ratings/index', [\App\Http\Controllers\RatingController::class, 'index'])
+    ->name('ratings.index');
 Route::get('/rate', [\App\Http\Controllers\RatingController::class, 'provideRating'])
     ->name('rating.provide');
 Route::post('/addRating', [\App\Http\Controllers\RatingController::class, 'addRating'])
     ->name('rating.add');
+
+//recommendation routes
+Route::get('/recommendations', [\App\Http\Controllers\RecommendationController::class, 'index'])
+    ->name('recommendations.index');
+Route::post('/recommendations', [\App\Http\Controllers\RecommendationController::class, 'getRecommendation'])
+    ->name('getRecommendation');
 
 // ajax routes
 Route::post('/district/getDistricts', [\App\Http\Controllers\DistrictController::class, 'getDistricts']);
