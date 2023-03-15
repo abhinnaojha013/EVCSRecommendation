@@ -18,7 +18,7 @@ class ProvinceSeeder extends Seeder
     {
         $now = Carbon::now();
         $provinces = [
-            'Pradesh 1',
+            'Koshi Pradesh',
             'Madhesh Pradesh',
             'Bagmati Pradesh',
             'Gandaki Pradesh',
