@@ -87,7 +87,36 @@
             </div>
 {{--            right recommendation--}}
             <div>
-
+                @if($data['recommendations'] == [])
+{{--                    <p>No match found on location</p>--}}
+                @elseif($data['recommendations']->isEmpty())
+                    <p>No match found on location</p>
+                @else
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                        </tr>
+                        @foreach($data['recommendations'] as $rec)
+                            <tr>
+                                <td>{{$rec->cs_name}}</td>
+                                <td>{{$rec->metropolitan}}-{{$rec->ward_number}}, {{$rec->district}}, {{$rec->province}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                @endif
+            </div>
+        </div>
+        <div>
+            <div>
+                <a href="{{route('rating.provide')}}">
+                    <button>Rate a charging station</button>
+                </a>
+            </div>
+            <div>
+                <a href="{{route('ratings.index')}}">
+                    <button>Back to Main</button>
+                </a>
             </div>
         </div>
     </section>

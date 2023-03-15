@@ -21,6 +21,18 @@
             @endif
         </div>
         <div>
+            <div>
+                <a href="{{route('rating.provide')}}">
+                    <button>Rate a charging station</button>
+                </a>
+            </div>
+            <div>
+                <a href="{{route('recommendations.index')}}">
+                    <button>Get recommendation</button>
+                </a>
+            </div>
+        </div>
+        <div>
             <table>
                 <tr>
                     <th>Charging Station</th>
