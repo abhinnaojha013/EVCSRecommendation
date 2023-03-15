@@ -52,31 +52,10 @@ class Ratings extends Model
 
     function userRatings() {
         return DB::table('ratings')
-            ->select('id')
-            ->where('ratings.user', '=', Auth::id())
-            ->get();
-    }
-
-    function getUsersRatings($request) {
-        return DB::table('ratings')
-            ->join('charging_stations','ratings.charging_station','=', 'charging_stations.id')
-            ->join('locations','charging_stations.location','=', 'locations.id')
-            ->select('ratings.user as user',
-                'ratings.charging_station as charging_station',
-                'ratings.rating as rating'
-            )->where('locations.metropolitan', '=', $request->metropolitan)
-            ->where('locations.ward_number', '=', $request->ward_number)
-            ->get();
-    }
-
-    function getUsersRatingsNoWard($request) {
-        return DB::table('ratings')
-            ->join('charging_stations','ratings.charging_station','=', 'charging_stations.id')
-            ->join('locations','charging_stations.location','=', 'locations.id')
-            ->select('ratings.user as user',
-                'ratings.charging_station as charging_station',
-                'ratings.rating as rating'
-            )->where('locations.metropolitan', '=', $request->metropolitan)
+            ->select('id',
+                'charging_station',
+                'rating'
+            )->where('ratings.user', '=', Auth::id())
             ->get();
     }
 }

@@ -89,4 +89,39 @@ class ChargingStation extends Model
             ->where('id', '=', $id)
             ->get();
     }
+
+    function getChargingStationWard($request) {
+        return DB::table('charging_stations')
+            ->join('locations','charging_stations.location','=', 'locations.id')
+            ->select('charging_stations.id as charging_station',
+            )->where('locations.metropolitan', '=', $request->metropolitan)
+            ->where('locations.ward_number', '=', $request->ward_number)
+            ->get();
+    }
+
+    function getChargingStationNoWard($request) {
+        return DB::table('charging_stations')
+            ->join('locations','charging_stations.location','=', 'locations.id')
+            ->select('charging_stations.id as charging_station',
+            )->where('locations.metropolitan', '=', $request->metropolitan)
+            ->get();
+    }
+
+    function getFinalRecommendations($csid1, $csid2, $csid3) {
+        return DB::table('charging_stations')
+            ->join('locations','charging_stations.location','=', 'locations.id')
+            ->join('metropolitans', 'locations.metropolitan', '=', 'metropolitans.id')
+            ->join('districts', 'metropolitans.district', '=', 'districts.id')
+            ->join('provinces', 'districts.province', '=', 'provinces.id')
+            ->select('charging_stations.id as cs_id',
+                'charging_stations.charging_station_name as cs_name',
+                'locations.ward_number as ward_number',
+                'metropolitans.metropolitan_name as metropolitan',
+                'districts.district_name as district',
+                'provinces.province_name as province'
+            )->where('charging_stations.id', '=', $csid1)
+            ->orWhere('charging_stations.id', '=', $csid2)
+            ->orWhere('charging_stations.id', '=', $csid3)
+            ->get();
+    }
 }
