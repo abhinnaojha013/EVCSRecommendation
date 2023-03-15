@@ -1,7 +1,13 @@
 <?php
 
+use \App\Http\Controllers\ChargingStationController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MetropolitanController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\RecommendationController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,40 +19,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // charging  station routes
-Route::get('/Charging-Station/index', [\App\Http\Controllers\ChargingStationController::class, 'index'])
+Route::get('/Charging-Station/index', [ChargingStationController::class, 'index'])
     ->name('chargingStation.index');
-Route::get('/Charging-Station/create', [\App\Http\Controllers\ChargingStationController::class, 'create'])
+Route::get('/Charging-Station/create', [ChargingStationController::class, 'create'])
     ->name('chargingStation.create');
-Route::post('/Charging-Station/store', [\App\Http\Controllers\ChargingStationController::class, 'store'])
+Route::post('/Charging-Station/store', [ChargingStationController::class, 'store'])
     ->name('chargingStation.store');
 
 //rating routes
-Route::get('/ratings/index', [\App\Http\Controllers\RatingController::class, 'index'])
+Route::get('/ratings/index', [RatingController::class, 'index'])
     ->name('ratings.index');
-Route::get('/rate', [\App\Http\Controllers\RatingController::class, 'provideRating'])
+Route::get('/rate', [RatingController::class, 'provideRating'])
     ->name('rating.provide');
-Route::post('/addRating', [\App\Http\Controllers\RatingController::class, 'addRating'])
+Route::post('/addRating', [RatingController::class, 'addRating'])
     ->name('rating.add');
 
 //recommendation routes
-Route::get('/recommendations', [\App\Http\Controllers\RecommendationController::class, 'index'])
+Route::get('/recommendations', [RecommendationController::class, 'index'])
     ->name('recommendations.index');
-Route::post('/recommendations', [\App\Http\Controllers\RecommendationController::class, 'getRecommendation'])
+Route::post('/recommendations', [RecommendationController::class, 'getRecommendation'])
     ->name('getRecommendation');
 
 // ajax routes
-Route::post('/district/getDistricts', [\App\Http\Controllers\DistrictController::class, 'getDistricts']);
-Route::post('/metropolitan/getMetropolitans', [\App\Http\Controllers\MetropolitanController::class, 'getMetropolitans']);
-Route::post('/metropolitan/getWards', [\App\Http\Controllers\MetropolitanController::class, 'getWards']);
-Route::post('/chargingStation/getChargingStations', [\App\Http\Controllers\ChargingStationController::class, 'getChargingStations']);
+Route::post('/district/getDistricts', [DistrictController::class, 'getDistricts']);
+Route::post('/metropolitan/getMetropolitans', [MetropolitanController::class, 'getMetropolitans']);
+Route::post('/metropolitan/getWards', [MetropolitanController::class, 'getWards']);
+Route::post('/chargingStation/getChargingStations', [ChargingStationController::class, 'getChargingStations']);
 
 
+// default routes
+Route::get('/', function () {
+    return  redirect()->route('login');
+//    return view('welcome');
+});
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
