@@ -124,4 +124,12 @@ class ChargingStation extends Model
             ->orWhere('charging_stations.id', '=', $csid3)
             ->get();
     }
+
+        function oldChargingStations($id, $name) {
+            return DB::table('charging_stations')
+                ->select('charging_station_name'
+                )->where('location', '=', $id)
+                ->where('charging_station_name', '=', $name)
+                ->get();
+        }
 }

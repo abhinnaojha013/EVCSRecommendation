@@ -14,7 +14,7 @@ class SimilarityScores extends Model
     function insertSimilarityScore($chargingStation1, $chargingStation2, $similarityScore) {
         $now = Carbon::now();
 
-        DB::table('similarity_scores')->insert([
+        return DB::table('similarity_scores')->insertGetId([
             'charging_station_1' => $chargingStation1,
             'charging_station_2' => $chargingStation2,
             'similarity_score' => $similarityScore,

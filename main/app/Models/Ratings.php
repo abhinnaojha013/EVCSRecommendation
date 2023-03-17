@@ -28,6 +28,7 @@ class Ratings extends Model
             ->join('districts', 'metropolitans.district', '=', 'districts.id')
             ->join('provinces', 'districts.province', '=', 'provinces.id')
             ->select('ratings.id as r_id',
+                'ratings.charging_station as r_csid',
                 'charging_stations.charging_station_name as cs_name',
                 'ratings.rating as rating',
                 'locations.ward_number as ward_number',
@@ -57,5 +58,17 @@ class Ratings extends Model
                 'rating'
             )->where('ratings.user', '=', Auth::id())
             ->get();
+    }
+
+    function updateRating($request) {
+        $now = Carbon::now();
+
+        DB::table('ratings')
+            ->where('user', '=', Auth::id())
+            ->where('charging_station', '=', $request->charging_station)
+            ->update([
+                'rating' => $request->rating,
+                'updated_at' => $now
+            ]);
     }
 }

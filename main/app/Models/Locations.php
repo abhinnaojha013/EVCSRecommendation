@@ -30,4 +30,6 @@ class Locations extends Model
             'updated_at' => $now
         ]);
     }
+
+
 }
