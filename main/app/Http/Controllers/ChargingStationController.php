@@ -53,7 +53,33 @@ class ChargingStationController extends Controller
         }
     }
 
+    function getChargingStations(Request $request) {
+        $chargingStationModel = new ChargingStation();
+        $chargingStations = $chargingStationModel->selectChargingStations($request);
+        return response()->json($chargingStations, 200);
+    }
+
     public function store (Request $request) {
+        if ($request->get('charging_station_name') == '') {
+            request()->session()->flash('error', 'Please provide charging station name');
+            return redirect()->route('chargingStation.create');
+        } elseif ($request->get('province') < 1 || $request->get('province') > 7) {
+            request()->session()->flash('error', 'Please select a valid province');
+            return redirect()->route('chargingStation.create');
+        } elseif ($request->get('district') < 1 || $request->get('district') > 77) {
+            request()->session()->flash('error', 'Please select a valid district');
+            return redirect()->route('chargingStation.create');
+        } elseif ($request->get('metropolitan') < 0) {
+            request()->session()->flash('error', 'Please select a valid metropolitan');
+            return redirect()->route('chargingStation.create');
+        } elseif ($request->get('ward_number') < 0 || $request->get('ward_number') > $request->get('max_wards')) {
+            request()->session()->flash('error', 'Please enter a valid ward number');
+            return redirect()->route('chargingStation.create');
+        } elseif ($request->get('charging_station') < 0) {
+            request()->session()->flash('error', 'Please select a valid charging station');
+            return redirect()->route('chargingStation.create');
+        }
+
         try {
             $locationsModel = new Locations();
             $location_existing = $locationsModel->selectLocations($request);
@@ -65,22 +91,26 @@ class ChargingStationController extends Controller
             }
 
             $chargingStationModel =  new ChargingStation();
-            $chargingStation = $chargingStationModel->insertChargingStation($request, $location_id);
+            $csFlag = $chargingStationModel->oldChargingStations($location_id, $request->get('charging_station_name'));
 
-            $this->calculateSimilarityScores($chargingStation);
-
-            request()->session()->flash('success', 'Charging station creation success');
-            return redirect()->route('chargingStation.index');
-        } catch (Exception $exception) {
+            if ($csFlag->isNotEmpty()) {
+                request()->session()->flash('error', 'Charging station already exists');
+                return redirect()->route('chargingStation.create');
+            } else {
+                DB::beginTransaction();
+                $chargingStation = $chargingStationModel->insertChargingStation($request, $location_id);
+                if (!$chargingStation) {
+                    DB::rollBack();
+                } else {
+                    $this->calculateSimilarityScores($chargingStation);
+                }
+                request()->session()->flash('success', 'Charging station creation success');
+                return redirect()->route('chargingStation.index');
+            }
+        } catch (\Exception $exception) {
             request()->session()->flash('error', 'Charging station creation failed');
             return redirect()->route('chargingStation.create');
         }
-    }
-
-    function getChargingStations(Request $request) {
-        $chargingStationModel = new ChargingStation();
-        $chargingStations = $chargingStationModel->selectChargingStations($request);
-        return response()->json($chargingStations, 200);
     }
 
     function calculateSimilarityScores($id) {
@@ -123,10 +153,19 @@ class ChargingStationController extends Controller
                     $nearest_shopping_mall * $nearest_shopping_mall +
                     $nearest_cinema_hall * $nearest_cinema_hall;
 
-                $similarityScore = $ab / (sqrt($aSquared) * sqrt($bSquared));
-
-                $similarityScoresModel->insertSimilarityScore($referenceChargingStation[0]->id, $chargingStation->id, $similarityScore);
-        }
+                if ($aSquared == 0 || $bSquared == 0) {
+                    $similarityScore = 0;
+                } else {
+                    $similarityScore = $ab / (sqrt($aSquared) * sqrt($bSquared));
+                }
+                $similarityScoreCheck = $similarityScoresModel->insertSimilarityScore($referenceChargingStation[0]->id, $chargingStation->id, $similarityScore);
+                if (!$similarityScoreCheck) {
+                    DB::rollBack();
+                    DB::rollBack();
+                } else {
+                    DB::commit();
+                }
+            }
     }
 
     function distance_scale($distance_str) {

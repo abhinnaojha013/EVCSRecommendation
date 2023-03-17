@@ -7,6 +7,7 @@ use App\Models\Ratings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Exception;
 
 class RatingController extends Controller
 {
@@ -42,6 +43,20 @@ class RatingController extends Controller
     }
 
     function addRating(Request $request) {
+        if ($request->get('province') < 1 || $request->get('province') > 7) {
+            request()->session()->flash('error', 'Please select a valid province');
+            return redirect()->route('rating.provide');
+        } elseif ($request->get('district') < 1 || $request->get('district') > 77) {
+            request()->session()->flash('error', 'Please select a valid district');
+            return redirect()->route('rating.provide');
+        } elseif ($request->get('metropolitan') < 0) {
+            request()->session()->flash('error', 'Please select a valid metropolitan');
+            return redirect()->route('rating.provide');
+        } elseif ($request->get('ward_number') < 0 || $request->get('ward_number') > $request->get('max_wards')) {
+            request()->session()->flash('error', 'Please select a valid ward');
+            return redirect()->route('rating.provide');
+        }
+
         try {
             $ratingModel = new Ratings();
 
@@ -57,6 +72,18 @@ class RatingController extends Controller
         } catch (\Exception $exception) {
             request()->session()->flash('error', 'Rating provision failed.');
             return redirect()->route('rating.provide');
+        }
+    }
+
+    function editRating(Request $request) {
+        try {
+            $ratingModel = new Ratings();
+            $ratingModel->updateRating($request);
+            request()->session()->flash('success', 'Successfully updated rating');
+        } catch (\Exception $exception) {
+            request()->session()->flash('error', 'Rating update failed.');
+        } finally {
+            return redirect()->route('ratings.index');
         }
     }
 }
