@@ -39,6 +39,8 @@ Route::get('/rate', [RatingController::class, 'provideRating'])
     ->name('rating.provide');
 Route::post('/addRating', [RatingController::class, 'addRating'])
     ->name('rating.add');
+Route::post('/editRating', [RatingController::class, 'editRating'])
+    ->name('rating.edit');
 
 //recommendation routes
 Route::get('/recommendations', [RecommendationController::class, 'index'])
@@ -56,7 +58,6 @@ Route::post('/chargingStation/getChargingStations', [ChargingStationController::
 // default routes
 Route::get('/', function () {
     return  redirect()->route('login');
-//    return view('welcome');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
