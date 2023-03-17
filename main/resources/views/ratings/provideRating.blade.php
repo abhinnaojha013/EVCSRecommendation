@@ -1,5 +1,5 @@
 @extends("layouts.app")
-@section("title", "Ratings")
+@section("title", "Provide rating")
 
 @section("content")
     <section>
@@ -65,6 +65,7 @@
                         <select id="ward_number" name="ward_number">
                             <option value="0">-Select Ward-</option>
                         </select>
+                        <input type="hidden" id="max_wards" name="max_wards" value="1">
                     </td>
                 </tr>
                 <tr>
@@ -135,7 +136,6 @@
         .star {
             font-size: x-large;
         }
-
     </style>
     <script>
         // get districts from province selected
@@ -198,6 +198,8 @@
                         option_all = option_all + '<option value="' + i + '">' + i + '</option>';
                     }
                     $('#ward_number').html(option_all);
+
+                    document.getElementById('max_wards').value = max_wards;
                 }
             });
         });

@@ -1,5 +1,5 @@
 @extends("layouts.app")
-@section("title", "Ratings")
+@section("title", "Recommendation")
 
 @section("content")
     <section>
@@ -64,12 +64,12 @@
                                 <label for="ward_number">Ward:</label>
                             </td>
                             <td>
-                                <select id="ward_number" name="ward_number">
+                                <select id="ward_number" name="ward_number" disabled>
                                     <option value="0">-Select Ward-</option>
                                 </select>
                                 <span>
-                            <input type="checkbox" id="toggle_ward"> Exclude Ward
-                            <input type="hidden" id="ward_enabled" name="ward_enabled" value="1">
+                            <input type="checkbox" id="toggle_ward" checked> Exclude Ward
+                            <input type="hidden" id="ward_enabled" name="ward_enabled" value="0">
                         </span>
                             </td>
                         </tr>
