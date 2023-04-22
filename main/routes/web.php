@@ -31,6 +31,10 @@ Route::get('/Charging-Station/create', [ChargingStationController::class, 'creat
     ->name('chargingStation.create');
 Route::post('/Charging-Station/store', [ChargingStationController::class, 'store'])
     ->name('chargingStation.store');
+Route::get('/Charging-Station/{id}/edit', [ChargingStationController::class, 'edit'])
+    ->name('chargingStation.edit');
+Route::post('/Charging-Station/update', [ChargingStationController::class, 'update'])
+    ->name('chargingStation.update');
 
 //rating routes
 Route::get('/ratings/index', [RatingController::class, 'index'])
@@ -47,6 +51,12 @@ Route::get('/recommendations', [RecommendationController::class, 'index'])
     ->name('recommendations.index');
 Route::post('/recommendations', [RecommendationController::class, 'getRecommendation'])
     ->name('getRecommendation');
+
+// metropolitan add
+Route::get('/metropolitan/create', [MetropolitanController::class, 'createMetropolitan'])
+    ->name('metropolitan.create');
+Route::post('/metropolitan/store', [MetropolitanController::class, 'store'])
+    ->name('metropolitan.store');
 
 // ajax routes
 Route::post('/district/getDistricts', [DistrictController::class, 'getDistricts']);
