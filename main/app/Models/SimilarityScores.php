@@ -23,11 +23,11 @@ class SimilarityScores extends Model
         ]);
     }
 
-    function getSimilarityScore($cs1, $cs2) {
-        return DB::table('similarity_scores')
-            ->select('similarity_score')
-            ->where('charging_station_1', '=', $cs1)
-            ->where('charging_station_2', '=', $cs2)
-            ->get();
-    }
+//    function getSimilarityScore($cs1, $cs2) {
+//        return DB::table('similarity_scores')
+//            ->select('similarity_score')
+//            ->where('charging_station_1', '=', $cs1)
+//            ->where('charging_station_2', '=', $cs2)
+//            ->get();
+//    }
 }
