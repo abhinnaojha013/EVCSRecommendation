@@ -55,6 +55,9 @@ class RatingController extends Controller
         } elseif ($request->get('ward_number') < 0 || $request->get('ward_number') > $request->get('max_wards')) {
             request()->session()->flash('error', 'Please select a valid ward');
             return redirect()->route('rating.provide');
+        } elseif ($request->get('charging_station') < 0) {
+            request()->session()->flash('error', 'Please select a valid charging station');
+            return redirect()->route('chargingStation.create');
         }
 
         try {
