@@ -19,9 +19,16 @@
             @endif
         </div>
         <div>
-            <a href="{{route('chargingStation.create')}}">
-                <button>Add a charging station</button>
-            </a>
+            <div>
+                <a href="{{route('chargingStation.create')}}">
+                    <button>Add a charging station</button>
+                </a>
+            </div>
+            <div>
+                <a href="{{route('metropolitan.create')}}">
+                    <button>Add a metropolitan</button>
+                </a>
+            </div>
         </div>
         <div>
             <table>

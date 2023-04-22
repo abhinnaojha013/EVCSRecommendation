@@ -89,19 +89,29 @@
             <div>
                 @if($data['recommendations'] == [])
 {{--                    <p>No match found on location</p>--}}
-                @elseif($data['recommendations']->isEmpty())
+                @elseif($data['recommendations'][0]->isEmpty())
                     <p>No match found on location</p>
                 @else
                     <table>
                         <tr>
                             <th>Name</th>
                             <th>Location</th>
+                            <th>Estimated Rating</th>
                         </tr>
+                        <?php
+                            $i = 0;
+                        ?>
                         @foreach($data['recommendations'] as $rec)
-                            <tr>
-                                <td>{{$rec->cs_name}}</td>
-                                <td>{{$rec->metropolitan}}-{{$rec->ward_number}}, {{$rec->district}}, {{$rec->province}}</td>
-                            </tr>
+                            @if(!$rec->isEmpty())
+                                <tr>
+                                    <td>{{$rec[0]->cs_name}}</td>
+                                    <td>{{$rec[0]->metropolitan}}-{{$rec[0]->ward_number}}, {{$rec[0]->district}}, {{$rec[0]->province}}</td>
+                                    <td>{{round($data['estimated_rating'][$i], 2)}}</td>
+                                    <?php
+                                    $i++;
+                                    ?>
+                                </tr>
+                            @endif
                         @endforeach
                     </table>
                 @endif
