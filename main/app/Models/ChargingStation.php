@@ -26,6 +26,39 @@ class ChargingStation extends Model
             )->get();
     }
 
+    function selectIndexMetropolitan($request) {
+        return DB::table('charging_stations')
+            ->join('locations','charging_stations.location','=', 'locations.id')
+            ->join('metropolitans', 'locations.metropolitan', '=', 'metropolitans.id')
+            ->join('districts', 'metropolitans.district', '=', 'districts.id')
+            ->join('provinces', 'districts.province', '=', 'provinces.id')
+            ->select('charging_stations.id as cs_id',
+                'charging_stations.charging_station_name as cs_name',
+                'locations.ward_number as ward_number',
+                'metropolitans.metropolitan_name as metropolitan',
+                'districts.district_name as district',
+                'provinces.province_name as province'
+            )->where('locations.metropolitan', '=', $request->get('metropolitan'))
+            ->get();
+    }
+
+    function selectIndexWard($request) {
+        return DB::table('charging_stations')
+            ->join('locations','charging_stations.location','=', 'locations.id')
+            ->join('metropolitans', 'locations.metropolitan', '=', 'metropolitans.id')
+            ->join('districts', 'metropolitans.district', '=', 'districts.id')
+            ->join('provinces', 'districts.province', '=', 'provinces.id')
+            ->select('charging_stations.id as cs_id',
+                'charging_stations.charging_station_name as cs_name',
+                'locations.ward_number as ward_number',
+                'metropolitans.metropolitan_name as metropolitan',
+                'districts.district_name as district',
+                'provinces.province_name as province'
+            )->where('locations.metropolitan', '=', $request->get('metropolitan'))
+            ->where('locations.ward_number', '=', $request->get('ward_number'))
+            ->get();
+    }
+
     function selectEdit($id) {
         return DB::table('charging_stations')
             ->join('locations','charging_stations.location','=', 'locations.id')
