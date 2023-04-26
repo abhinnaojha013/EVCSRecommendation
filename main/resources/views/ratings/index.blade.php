@@ -50,11 +50,13 @@
                     let flag = document.getElementById('editFlag' + rid).value;
                     if(flag == 0) {
                         document.getElementById('button' + rid).innerText = "Cancel Edit";
+                        document.getElementById('edit' + rid).classList.replace('btn-warning', 'btn-danger');
                         document.getElementById('editFlag' + rid).value = '1';
                         document.getElementById('updateRating' + rid).classList.replace('disabled', 'enabled');
                         document.getElementById('updateForm' + rid).classList.replace('disabled', 'enabled');
                     } else {
                         document.getElementById('button' + rid).innerText = "Edit Rating";
+                        document.getElementById('edit' + rid).classList.replace('btn-danger', 'btn-warning');
                         document.getElementById('editFlag' + rid).value = '0';
                         document.getElementById('updateRating' + rid).classList.replace('enabled', 'disabled');
                         document.getElementById('updateForm' + rid).classList.replace('enabled', 'disabled');
@@ -63,9 +65,10 @@
             }
         </script>
         <div>
-            <h2>
-                Ratings
+            <h2 style="font-weight: bold">
+                Index
             </h2>
+            <hr>
         </div>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
@@ -79,20 +82,23 @@
                 </p>
             @endif
         </div>
-        <div>
+        <div class="d-flex flex-row" style="margin-bottom: 30px">
             <div>
                 <a href="{{route('rating.provide')}}">
-                    <button>Rate a charging station</button>
+                    <button class="btn btn-primary">Rate a charging station</button>
                 </a>
             </div>
-            <div>
+            <div style="margin-left: 100px">
                 <a href="{{route('recommendations.index')}}">
-                    <button>Get recommendation</button>
+                    <button class="btn btn-primary">Get recommendation</button>
                 </a>
             </div>
         </div>
         <div>
-            <table>
+            <h4 style="font-weight: bold">
+                Ratings
+            </h4>
+            <table class="table">
                 <tr>
                     <th>Charging Station</th>
                     <th>Location</th>
@@ -118,9 +124,11 @@
                             </script>
                         </td>
                         <td>
-                            <div style="display: flex">
-                                <button id="edit{{$ratings->r_id}}"><span id="button{{$ratings->r_id}}">Edit Rating</span></button>
+                            <div style="display: flex;">
+                                <button id="edit{{$ratings->r_id}}" class="btn btn-warning"><span id="button{{$ratings->r_id}}">Edit Rating</span></button>
+                                <div style="width: 10px"></div>
                                 <input type="hidden" id="editFlag{{$ratings->r_id}}" value="0">
+                                <div style="width: 10px"></div>
                                 <div class="rating disabled" id="updateRating{{$ratings->r_id}}">
                                     <span id="er{{$ratings->r_id}}_s1" class="unselected dim"><i class="fa fa-star star"></i></span>
                                     <span id="er{{$ratings->r_id}}_s2" class="unselected dim"><i class="fa fa-star star"></i></span>
@@ -128,11 +136,12 @@
                                     <span id="er{{$ratings->r_id}}_s4" class="unselected dim"><i class="fa fa-star star"></i></span>
                                     <span id="er{{$ratings->r_id}}_s5" class="unselected dim"><i class="fa fa-star star"></i></span>
                                 </div>
+                                <div style="width: 10px"></div>
                                 <form class="disabled" id="updateForm{{$ratings->r_id}}" method="POST" action="{{route('rating.edit')}}" disabled>
                                     @csrf
                                     <input type="hidden" name="rating" id="rating{{$ratings->r_id}}" value="{{$ratings->rating}}">
                                     <input type="hidden" name="charging_station" value="{{$ratings->r_csid}}">
-                                    <input type="submit" value="Update rating">
+                                    <input type="submit" value="Update rating" class="btn btn-success">
                                 </form>
                                 <script>
                                     updateToggle({{$ratings->r_id}});

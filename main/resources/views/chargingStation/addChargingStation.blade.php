@@ -4,9 +4,10 @@
 @section("content")
     <section>
         <div>
-            <h2>
+            <h2 style="font-weight: bold">
                 Add Charging Station
             </h2>
+            <hr>
         </div>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
@@ -23,7 +24,7 @@
         <div>
             <form method="post" action="{{route('chargingStation.store')}}">
                 @csrf
-                <table>
+                <table class="table">
                     <tr>
                         <td>
                             <label for="charging-station-name">Name:</label>
@@ -117,7 +118,7 @@
                         </td>
                         <td>
                             <input type="number" id="nearest_restaurant" name="nearest_restaurant" min="0" value="0" required/>
-                            <span id="nearest_restaurant"></span>
+                            <span id="nearest_restaurant"> metres</span>
                         </td>
                     </tr>
                     <tr>
@@ -126,7 +127,7 @@
                         </td>
                         <td>
                             <input type="number" id="nearest_shopping_mall" name="nearest_shopping_mall" min="0" value="0" required/>
-                            <span id="nearest_shopping_mall"></span>
+                            <span id="nearest_shopping_mall"> metres</span>
                         </td>
                     </tr>
                     <tr>
@@ -135,14 +136,14 @@
                         </td>
                         <td>
                             <input type="number" id="nearest_cinema_hall" name="nearest_cinema_hall" min="0" value="0" required/>
-                            <span id="nearest_cinema_hall"></span>
+                            <span id="nearest_cinema_hall"> metres</span>
                         </td>
                     </tr>
 
                     <tr>
                         <td><!-- dummy td--></td>
                         <td>
-                            <input type="submit" value="Add Charging Station">
+                            <input type="submit" value="Add Charging Station" class="btn btn-success">
                         </td>
                     </tr>
                 </table>
@@ -150,7 +151,7 @@
         </div>
         <div>
             <a href="{{route('chargingStation.index')}}">
-                <button>Return to index</button>
+                <button class="btn btn-danger" style="font-size: 1rem">Return to main</button>
             </a>
         </div>
     </section>

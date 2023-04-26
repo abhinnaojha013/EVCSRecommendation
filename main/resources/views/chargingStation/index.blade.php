@@ -3,9 +3,10 @@
 
 @section("content")
     <section>
-        <h2>
+        <h2 style="font-weight: bold">
             Charging Stations
         </h2>
+        <hr>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
                 <p class="alert alert-success" role="alert">
@@ -18,33 +19,225 @@
                 </p>
             @endif
         </div>
-        <div>
+        <div class="d-flex flex-row" style="margin-bottom: 30px">
             <div>
                 <a href="{{route('chargingStation.create')}}">
-                    <button>Add a charging station</button>
+                    <button class="btn btn-primary" style="font-size: 1rem">Add a charging station</button>
                 </a>
             </div>
-            <div>
+            <div style="margin-left: 100px">
                 <a href="{{route('metropolitan.create')}}">
-                    <button>Add a metropolitan</button>
+                    <button class="btn btn-primary" style="font-size: 1rem">Add a metropolitan</button>
                 </a>
             </div>
         </div>
+        <h4 style="font-weight: bold">
+            Search
+        </h4>
         <div>
-            <table>
-                <tr>
-                    <th>Charging Station Name</th>
-                    <th>Location</th>
-                </tr>
-                @foreach($data['charging_stations'] as $charging_station)
+            <form method="post" action="{{route('rating.add')}}">
+                @csrf
+                <table class="table">
                     <tr>
-                        <td>{{$charging_station->cs_name}}</td>
                         <td>
-                            {{$charging_station->metropolitan}}-{{$charging_station->ward_number}}, {{$charging_station->district}}, {{$charging_station->province}}
+                            <label for="province">Province:</label>
+                        </td>
+                        <td>
+                            <select id="province" name="province">
+                                <option value="0">-Select Province-</option>
+                                @foreach($data['provinces'] as $province)
+                                    <option value="{{$province->id}}">{{$province->province_name}}</option>
+                                @endforeach
+                            </select>
                         </td>
                     </tr>
-                @endforeach
-            </table>
+                    <tr>
+                        <td>
+                            <label for="district">District:</label>
+                        </td>
+                        <td>
+                            <select id="district" name="district">
+                                <option value="0">-Select District-</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="metropolitan">Metropolitan:</label>
+                        </td>
+                        <td>
+                            <select id="metropolitan" name="metropolitan">
+                                <option value="0">-Select Metropolitan-</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="ward_number">Ward:</label>
+                        </td>
+                        <td>
+                            <select id="ward_number" name="ward_number">
+                                <option value="0">-Select Ward-</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <div>
+            <table id="cs_data" class="table"></table>
         </div>
     </section>
+    <script>
+        // get districts from province selected
+        $('#province').change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/district/getDistricts',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    province:  $('#province').val()
+                },
+                success: function (districts) {
+                    let option_all = '<option value="0">-Select District-</option>';
+                    for (let i = 0; i < districts.length; i++) {
+                        option_all = option_all + '<option value="' + districts[i].id + '">' + districts[i].district_name + '</option>';
+                    }
+                    $('#district').html(option_all);
+                }
+            });
+        });
+
+        // get metropolitans from districts selected
+        $('#district').change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/metropolitan/getMetropolitans',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    district:  $('#district').val()
+                },
+                success: function (metropolitans) {
+                    let option_all = '<option value="0">-Select Metropolitan-</option>';
+                    for (let i = 0; i < metropolitans.length; i++) {
+                        option_all = option_all + '<option value="' + metropolitans[i].id + '">' + metropolitans[i].metropolitan_name + '</option>';
+                    }
+                    $('#metropolitan').html(option_all);
+                }
+            });
+        });
+
+        // get max wards from metropolitan selected
+        $('#metropolitan').change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/metropolitan/getWards',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    metropolitan:  $('#metropolitan').val()
+                },
+                success: function (wards) {
+                    let max_wards = wards[0].wards;
+                    let option_all = '<option value="0">-Select Ward-</option>';
+                    for (let i = 1; i <= max_wards; i++) {
+                        option_all = option_all + '<option value="' + i + '">' + i + '</option>';
+                    }
+                    $('#ward_number').html(option_all);
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '/chargingStation/getChargingStationMetropolitan',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    metropolitan:  $('#metropolitan').val()
+                },
+                success: function (chargingStations) {
+                    if (chargingStations.length === 0) {
+                        document.getElementById('cs_data').innerHTML = 'No data available';
+                    } else {
+                        let cs_list = "<h4 style='font-weight: bold'>List of Charging Stations</h4>" +
+                            "<tr>" +
+                                "<th>Charging Station Name</th>" +
+                                "<th>Location</th>" +
+                                "<th></th>" +
+                            "</tr>";
+                        for (let i = 0; i < chargingStations.length; i++) {
+                            cs_list = cs_list +
+                                "<tr>" +
+                                    "<td>" + chargingStations[i].cs_name + "</td>" +
+                                    "<td>" +
+                                        chargingStations[i].metropolitan + "-" +
+                                        chargingStations[i].ward_number + ", " +
+                                        chargingStations[i].district + ", " +
+                                        chargingStations[i].province +
+                                    "</td>" +
+                                    "<td>" +
+                                        "<a href = '/Charging-Station/" + chargingStations[i].cs_id + "/edit'>" +
+                                            "<button class='btn btn-warning'>Edit</button>" +
+                                        "</a>" +
+                                    "</td>" +
+                                "</tr>"
+                        }
+                        document.getElementById('cs_data').innerHTML = cs_list;
+                    }
+                }
+            });
+        });
+
+        $('#ward_number').change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/chargingStation/getChargingStationWard',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    metropolitan:  $('#metropolitan').val(),
+                    ward_number:  $('#ward_number').val()
+
+                },
+                success: function (chargingStations) {
+                    if(chargingStations.length === 0) {
+                        document.getElementById('cs_data').innerHTML = 'No data available';
+                    } else {
+                        let cs_list = "<h4 style='font-weight: bold'>List of Charging Stations</h4>" +
+                            "<tr>" +
+                                "<th>Charging Station Name</th>" +
+                                "<th>Location</th>" +
+                                "<th></th>" +
+                            "</tr>";
+                        for (let i = 0; i < chargingStations.length; i++) {
+                            cs_list = cs_list +
+                                "<tr>" +
+                                    "<td>" + chargingStations[i].cs_name + "</td>" +
+                                    "<td>" +
+                                        chargingStations[i].metropolitan + "-" +
+                                        chargingStations[i].ward_number + ", " +
+                                        chargingStations[i].district + ", " +
+                                        chargingStations[i].province +
+                                    "</td>" +
+                                    "<td>" +
+                                        "<a href = '/Charging-Station/" + chargingStations[i].cs_id + "/edit'>" +
+                                            "<button class = 'btn btn-warning'>Edit</button>" +
+                                        "</a>" +
+                                    "</td>" +
+                                "</tr>"
+                        }
+                        document.getElementById('cs_data').innerHTML = cs_list;
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

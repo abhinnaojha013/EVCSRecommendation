@@ -4,9 +4,10 @@
 @section("content")
     <section>
         <div>
-            <h2>
+            <h2 style="font-weight: bold">
                 Edit Charging Station
             </h2>
+            <hr>
         </div>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
@@ -24,7 +25,7 @@
             <form method="post" action="{{route('chargingStation.update')}}">
                 @csrf
                 <input type="hidden" id="charging-station-id" name="charging_station_id" value="{{ $data['charging_station'][0]->cs_id}}" required/>
-                <table>
+                <table class="table">
                     <tr>
                         <td>
                             <label for="charging-station-name">Name:</label>
@@ -118,7 +119,7 @@
                         </td>
                         <td>
                             <input type="number" id="nearest_restaurant" name="nearest_restaurant" min="0" value="{{ $data['charging_station'][0]->restaurant}}" required/>
-                            <span id="nearest_restaurant"></span>
+                            <span id="nearest_restaurant"> metres</span>
                         </td>
                     </tr>
                     <tr>
@@ -127,7 +128,7 @@
                         </td>
                         <td>
                             <input type="number" id="nearest_shopping_mall" name="nearest_shopping_mall" min="0" value="{{ $data['charging_station'][0]->mall}}" required/>
-                            <span id="nearest_shopping_mall"></span>
+                            <span id="nearest_shopping_mall"> metres</span>
                         </td>
                     </tr>
                     <tr>
@@ -136,14 +137,14 @@
                         </td>
                         <td>
                             <input type="number" id="nearest_cinema_hall" name="nearest_cinema_hall" min="0" value="{{ $data['charging_station'][0]->cinema}}" required/>
-                            <span id="nearest_cinema_hall"></span>
+                            <span id="nearest_cinema_hall"> metres</span>
                         </td>
                     </tr>
 
                     <tr>
                         <td><!-- dummy td--></td>
                         <td>
-                            <input type="submit" value="Update Charging Station">
+                            <input type="submit" value="Update Charging Station" class="btn btn-success">
                         </td>
                     </tr>
                 </table>
@@ -151,7 +152,7 @@
         </div>
         <div>
             <a href="{{route('chargingStation.index')}}">
-                <button>Return to index</button>
+                <button class="btn btn-danger">Return to main</button>
             </a>
         </div>
     </section>

@@ -4,9 +4,10 @@
 @section("content")
     <section>
         <div>
-            <h2>
+            <h2 style="font-weight: bold">
                 Add Metropolitan
             </h2>
+            <hr>
         </div>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
@@ -23,7 +24,7 @@
         <div>
             <form method="post" action="{{route('metropolitan.store')}}">
                 @csrf
-                <table>
+                <table class="table">
                     <tr>
                         <td>
                             <label for="province">Province:</label>
@@ -66,7 +67,7 @@
                     <tr>
                         <td><!-- dummy td--></td>
                         <td>
-                            <input type="submit" value="Add Metropolitan">
+                            <input type="submit" value="Add Metropolitan" class="btn btn-success">
                         </td>
                     </tr>
                 </table>
@@ -74,7 +75,7 @@
         </div>
         <div>
             <a href="{{route('chargingStation.index')}}">
-                <button>Return to index</button>
+                <button class="btn btn-danger" style="font-size: 1rem">Return to main</button>
             </a>
         </div>
     </section>

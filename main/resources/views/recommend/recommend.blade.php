@@ -4,9 +4,10 @@
 @section("content")
     <section>
         <div>
-            <h2>
+            <h2 style="font-weight: bold">
                 Recommendations
             </h2>
+            <hr>
         </div>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
@@ -25,7 +26,7 @@
             <div>
                 <form method="POST" action="{{route('getRecommendation')}}">
                     @csrf
-                    <table>
+                    <table class="table">
                         <tr>
                             <td>
                                 <label for="province">Province:</label>
@@ -68,31 +69,32 @@
                                     <option value="0">-Select Ward-</option>
                                 </select>
                                 <span>
-                            <input type="checkbox" id="toggle_ward" checked> Exclude Ward
+                            <input type="checkbox" id="toggle_ward" checked>
+                                    <label for="toggle_ward">Exclude Ward</label>
                             <input type="hidden" id="ward_enabled" name="ward_enabled" value="0">
                         </span>
                             </td>
                         </tr>
                         <tr>
                             <td>
-
+                                <div style="width: 120px"></div>
                             </td>
                             <td>
-                                <input type="submit" value="Get recommendation" id="submit">
+                                <input type="submit" value="Get recommendation" id="submit" class="btn btn-success">
                                 <p id="error_submit" class="alert alert-danger" role="alert" style="display:none;"></p>
                             </td>
                         </tr>
                     </table>
                 </form>
             </div>
-{{--            right recommendation--}}
+{{--                                                                                                                                                                                                                 right recommendation--}}
             <div>
                 @if($data['recommendations'] == [])
 {{--                    <p>No match found on location</p>--}}
                 @elseif($data['recommendations'][0]->isEmpty())
                     <p>No match found on location</p>
                 @else
-                    <table>
+                    <table class="table">
                         <tr>
                             <th>Name</th>
                             <th>Location</th>
@@ -117,15 +119,15 @@
                 @endif
             </div>
         </div>
-        <div>
-            <div>
-                <a href="{{route('rating.provide')}}">
-                    <button>Rate a charging station</button>
-                </a>
-            </div>
+        <div class="d-flex flex-row">
             <div>
                 <a href="{{route('ratings.index')}}">
-                    <button>Back to Main</button>
+                    <button class="btn btn-danger" style="font-size: 1rem">Back to Main</button>
+                </a>
+            </div>
+            <div style="margin-left: 25px">
+                <a href="{{route('rating.provide')}}">
+                    <button class="btn btn-primary" style="font-size: 1rem">Rate a charging station instead</button>
                 </a>
             </div>
         </div>

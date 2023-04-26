@@ -3,12 +3,13 @@
 
 @section("content")
     <section>
-        <h2>
+        <h2 style="font-weight: bold">
             Rate a charging station
         </h2>
         <p>
             Please select the location details and the charging station that you wish to provide rating.
         </p>
+        <hr>
         <div>
             @if(\Illuminate\Support\Facades\Session::has('success'))
                 <p class="alert alert-success" role="alert">
@@ -23,7 +24,7 @@
         </div>
         <form method="post" action="{{route('rating.add')}}">
             @csrf
-            <table>
+            <table class="table">
                 <tr>
                     <td>
                         <label for="province">Province:</label>
@@ -98,21 +99,21 @@
                         <input type="hidden" value="1" name="rating" id="rating">
                     </td>
                     <td>
-                        <input type="submit" value="Submit rating" id="submit">
+                        <input type="submit" value="Submit rating" id="submit" class="btn btn-success">
                         <p id="error_submit" class="alert alert-danger" role="alert" style="display: none"></p>
                     </td>
                 </tr>
             </table>
         </form>
-        <div>
+        <div class="d-flex flex-row">
             <div>
-                <a href="{{route('recommendations.index')}}">
-                    <button>Get recommendation</button>
+                <a href="{{route('ratings.index')}}">
+                    <button class="btn btn-danger">Back to Main</button>
                 </a>
             </div>
-            <div>
-                <a href="{{route('rating.provide')}}">
-                    <button>Rate a charging station</button>
+            <div style="margin-left: 120px">
+                <a href="{{route('recommendations.index')}}">
+                    <button class="btn btn-primary">Get recommendation instead</button>
                 </a>
             </div>
         </div>
