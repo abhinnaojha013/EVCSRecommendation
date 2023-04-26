@@ -19,13 +19,22 @@ class MetropolitanSeeder extends Seeder
         $now = Carbon::now();
 
         $metropolitans = [
+            ['Birtamod', '10', '4'],
             ['Biratnagar', '20', '6'],
+            ['Itahari', '20', '11'],
+            ['Bardibas', '14', '17'],
+            ['Bhaktapur', '12', '23'],
+            ['Bharatpur', '29', '24'],
+            ['Ratnanagar', '16', '24'],
             ['Kathmandu', '32', '27'],
             ['Kirtipur', '16', '27'],
-            ['Bhaktapur', '12', '23'],
+            ['Hetauda', '19', '30'],
             ['Lalitpur', '22', '29'],
             ['Pokhara', '25', '38'],
+            ['Bandipur', '6', '46'],
             ['Nepalgunj', '27', '48'],
+            ['Dhangadhi', '19', '76'],
+            ['Chisapani', '19', '76'],
         ];
 
         foreach ($metropolitans as $metropolitan) {
