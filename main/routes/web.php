@@ -63,6 +63,8 @@ Route::post('/district/getDistricts', [DistrictController::class, 'getDistricts'
 Route::post('/metropolitan/getMetropolitans', [MetropolitanController::class, 'getMetropolitans']);
 Route::post('/metropolitan/getWards', [MetropolitanController::class, 'getWards']);
 Route::post('/chargingStation/getChargingStations', [ChargingStationController::class, 'getChargingStations']);
+Route::post('/chargingStation/getChargingStationMetropolitan', [ChargingStationController::class, 'getChargingStationMetropolitan']);
+Route::post('/chargingStation/getChargingStationWard', [ChargingStationController::class, 'getChargingStationWard']);
 
 
 // default routes
