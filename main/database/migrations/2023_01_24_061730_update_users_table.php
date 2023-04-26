@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->nullable();
-            $table->unsignedBigInteger('role');
+            $table->unsignedBigInteger('role')->default('3');
 
             $table->foreign('role')->references('id')->on('roles');
         });

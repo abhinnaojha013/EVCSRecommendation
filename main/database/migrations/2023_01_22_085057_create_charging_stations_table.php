@@ -22,10 +22,9 @@ return new class extends Migration
             $table->unsignedInteger('dc_ports_fast');
             $table->unsignedInteger('ac_ports_regular');
             $table->unsignedInteger('dc_ports_regular');
-//            TODO : make these not default
-            $table->unsignedDouble('nearest_restaurant')->default(0);
-            $table->unsignedDouble('nearest_shopping_mall')->default(0);
-            $table->unsignedDouble('nearest_cinema_hall')->default(0);
+            $table->unsignedDouble('nearest_restaurant');
+            $table->unsignedDouble('nearest_shopping_mall');
+            $table->unsignedDouble('nearest_cinema_hall');
 
             $table->timestamps();
 
