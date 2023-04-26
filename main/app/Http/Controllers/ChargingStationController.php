@@ -25,8 +25,11 @@ class ChargingStationController extends Controller
 
             $user = $userModel->getLoggedInUser(Auth::id());
             if ($user[0]->role == 1) {
-                $chargingStationModel = new ChargingStation();
-                $data['charging_stations'] = $chargingStationModel->selectIndex();
+//                $chargingStationModel = new ChargingStation();
+                $provincesModel = new Provinces();
+
+//                $data['charging_stations'] = $chargingStationModel->selectIndex();
+                $data['provinces'] = $provincesModel->selectProvinces();
                 return view('chargingStation.index', compact('data'));
             } else {
                 return  redirect()->route('login');
@@ -56,6 +59,18 @@ class ChargingStationController extends Controller
     function getChargingStations(Request $request) {
         $chargingStationModel = new ChargingStation();
         $chargingStations = $chargingStationModel->selectChargingStations($request);
+        return response()->json($chargingStations, 200);
+    }
+
+    function getChargingStationMetropolitan(Request $request) {
+        $chargingStationModel = new ChargingStation();
+        $chargingStations = $chargingStationModel->selectIndexMetropolitan($request);
+        return response()->json($chargingStations, 200);
+    }
+
+    function getChargingStationWard(Request $request) {
+        $chargingStationModel = new ChargingStation();
+        $chargingStations = $chargingStationModel->selectIndexWard($request);
         return response()->json($chargingStations, 200);
     }
 
