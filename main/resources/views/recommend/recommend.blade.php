@@ -2,6 +2,9 @@
 @section("title", "Recommendation")
 
 @section("content")
+    <script>
+        navigator.geolocation.getCurrentPosition( function(position) {});
+    </script>
     <section>
         <div>
             <h2 style="font-weight: bold">
@@ -72,6 +75,15 @@
                             <input type="checkbox" id="toggle_ward" checked>
                                     <label for="toggle_ward">Exclude Ward</label>
                             <input type="hidden" id="ward_enabled" name="ward_enabled" value="0">
+                            <input type="hidden" id="latitude" name="latitude" value="NULL">
+                            <input type="hidden" id="longitude" name="longitude" value="NULL">
+
+                            <script>
+                                navigator.geolocation.getCurrentPosition( function(position) {
+                                    document.getElementById('latitude').value = position.coords.latitude;
+                                    document.getElementById('longitude').value = position.coords.longitude;
+                                });
+                            </script>
                         </span>
                             </td>
                         </tr>
@@ -87,35 +99,54 @@
                     </table>
                 </form>
             </div>
-{{--                                                                                                                                                                                                                 right recommendation--}}
+{{-- right recommendation--}}
             <div>
                 @if($data['recommendations'] == [])
 {{--                    <p>No match found on location</p>--}}
                 @elseif($data['recommendations'][0]->isEmpty())
                     <p>No match found on location</p>
                 @else
-                    <table class="table">
-                        <tr>
-                            <th>Name</th>
-                            <th>Location</th>
-                            <th>Estimated Rating</th>
-                        </tr>
-                        <?php
+                    <div class="d-flex flex-column justify-content-center">
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Estimated Rating</th>
+                                <th>Distance</th>
+                                <th>Duration in car</th>
+                                <th></th>
+                            </tr>
+                            <?php
                             $i = 0;
-                        ?>
-                        @foreach($data['recommendations'] as $rec)
-                            @if(!$rec->isEmpty())
-                                <tr>
-                                    <td>{{$rec[0]->cs_name}}</td>
-                                    <td>{{$rec[0]->metropolitan}}-{{$rec[0]->ward_number}}, {{$rec[0]->district}}, {{$rec[0]->province}}</td>
-                                    <td>{{round($data['estimated_rating'][$i], 2)}}</td>
-                                    <?php
-                                    $i++;
-                                    ?>
-                                </tr>
-                            @endif
-                        @endforeach
-                    </table>
+                            ?>
+                            @foreach($data['recommendations'] as $rec)
+                                @if(!$rec->isEmpty())
+                                    <tr>
+                                        <td>{{$rec[0]->cs_name}}</td>
+                                        <td>{{$rec[0]->metropolitan}}-{{$rec[0]->ward_number}}, {{$rec[0]->district}}, {{$rec[0]->province}}</td>
+                                        <td>{{round($data['estimated_rating'][$i], 2)}}</td>
+                                        <td>{{round($data['distances'][$i], 2)}} km</td>
+                                        <td>{{round($data['durations'][$i], 2)}} minutes</td>
+                                        <td>
+                                            <a id="a_<?php echo $i ?>" target="_blank">
+                                                <script>
+                                                    navigator.geolocation.getCurrentPosition( function(position) {
+                                                        document.querySelector('#a_<?php echo $i ?>').href = 'https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=' + {{$rec[0]->latitude}} + '%2C' + {{$rec[0]->longitude}} + '%3B' + position.coords.latitude + '%2C' + position.coords.longitude;
+                                                    });
+                                                </script>
+                                                <button class="btn btn-info" id="map_view_<?php echo $i ?>" name="map_view_<?php echo $i ?>">
+                                                    Get directions
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <?php
+                                        $i++;
+                                        ?>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </table>
+                    </div>
                 @endif
             </div>
         </div>
@@ -236,5 +267,7 @@
                 return false;
             }
         });
+
+        $('')
     </script>
 @endsection

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-{{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield("title") - EVCS Recommendation System</title>
 
@@ -19,7 +19,7 @@
         crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-{{--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>--}}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -38,6 +38,25 @@
             background-size: cover;
             background-repeat: no-repeat;
             min-height: 610px;
+
+            /*--bs-body-bg-rgb: 255,255,255;*/
+            /*--bs-primary-rgb: 13,110,253;*/
+            /*--bd-accent-rgb: 255,228,132;*/
+            /*--bd-violet-rgb: 112.520718,44.062154,249.437846;*/
+            /*--bd-pink-rgb: 214,51,132;*/
+            /*background-image:*/
+            /*    linear-gradient(*/
+            /*        180deg,*/
+            /*        rgba(var(--bs-body-bg-rgb), 0.01),*/
+            /*        rgba(var(--bs-body-bg-rgb), 1) 85%),*/
+            /*    radial-gradient(ellipse at top left,*/
+            /*    rgba(var(--bs-primary-rgb), 0.5), transparent 50%),*/
+            /*    radial-gradient(ellipse at top right,*/
+            /*    rgba(var(--bd-accent-rgb), 0.5), transparent 50%),*/
+            /*    radial-gradient(ellipse at center right,*/
+            /*    rgba(var(--bd-violet-rgb), 0.5), transparent 50%),*/
+            /*    radial-gradient(ellipse at center left,*/
+            /*    rgba(var(--bd-pink-rgb), 0.5), transparent 50%);*/
         }
 
         td, th, h1, h2, h5, h4, h5, h6, p, label, button
