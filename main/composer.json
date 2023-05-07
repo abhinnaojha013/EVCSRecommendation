@@ -7,12 +7,15 @@
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
+        "h-ishak/ors-api-service": "*",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^4.2"
+        "laravel/ui": "^4.2",
+      "ext-http": "*"
     },
     "require-dev": {
+        "andyabih/laravel-to-uml": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",

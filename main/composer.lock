@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bbf9fe015dab62e48e0fb4e8da36311",
+    "content-hash": "cdf488323d1ab5326dcd1efb1f322b59",
     "packages": [
         {
             "name": "brick/math",
@@ -940,6 +940,51 @@
                 }
             ],
             "time": "2022-10-26T14:07:24+00:00"
+        },
+        {
+            "name": "h-ishak/ors-api-service",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/H-ishak/ors-api-service.git",
+                "reference": "bbbd031a91e45d154d8b2d6a0739dfbaf78b8190"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/H-ishak/ors-api-service/zipball/bbbd031a91e45d154d8b2d6a0739dfbaf78b8190",
+                "reference": "bbbd031a91e45d154d8b2d6a0739dfbaf78b8190",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "*",
+                "php": ">=7.4",
+                "symfony/psr-http-message-bridge": "*"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HIshak\\OrsLaravelApi\\": "src/",
+                    "HIshak\\OrsLaravelApi\\Services\\": "src/Services",
+                    "HIshak\\OrsLaravelApi\\Exceptions\\": "src/Exceptions"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ishak hadjal",
+                    "email": "ishak.hadjal@gmail.com"
+                }
+            ],
+            "description": "a class to use OpenRouteService Api in laravel 8",
+            "support": {
+                "issues": "https://github.com/H-ishak/ors-api-service/issues",
+                "source": "https://github.com/H-ishak/ors-api-service/tree/1.1.0-c"
+            },
+            "time": "2022-07-14T18:31:05+00:00"
         },
         {
             "name": "laravel/framework",
@@ -4546,6 +4591,94 @@
             "time": "2022-11-02T09:08:04+00:00"
         },
         {
+            "name": "symfony/psr-http-message-bridge",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/psr-http-message-bridge.git",
+                "reference": "28a732c05bbad801304ad5a5c674cf2970508993"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/28a732c05bbad801304ad5a5c674cf2970508993",
+                "reference": "28a732c05bbad801304ad5a5c674cf2970508993",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "psr/http-message": "^1.0 || ^2.0",
+                "symfony/http-foundation": "^5.4 || ^6.0"
+            },
+            "require-dev": {
+                "nyholm/psr7": "^1.1",
+                "psr/log": "^1.1 || ^2 || ^3",
+                "symfony/browser-kit": "^5.4 || ^6.0",
+                "symfony/config": "^5.4 || ^6.0",
+                "symfony/event-dispatcher": "^5.4 || ^6.0",
+                "symfony/framework-bundle": "^5.4 || ^6.0",
+                "symfony/http-kernel": "^5.4 || ^6.0",
+                "symfony/phpunit-bridge": "^6.2"
+            },
+            "suggest": {
+                "nyholm/psr7": "For a super lightweight PSR-7/17 implementation"
+            },
+            "type": "symfony-bridge",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Bridge\\PsrHttpMessage\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "PSR HTTP message bridge",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr-17",
+                "psr-7"
+            ],
+            "support": {
+                "issues": "https://github.com/symfony/psr-http-message-bridge/issues",
+                "source": "https://github.com/symfony/psr-http-message-bridge/tree/v2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-04-21T08:40:19+00:00"
+        },
+        {
             "name": "symfony/routing",
             "version": "v6.2.3",
             "source": {
@@ -5416,6 +5549,56 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "andyabih/laravel-to-uml",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andyabih/laravel-to-uml.git",
+                "reference": "d925215a7dbcaf813cabc8d83178e9f601c63b57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andyabih/laravel-to-uml/zipball/d925215a7dbcaf813cabc8d83178e9f601c63b57",
+                "reference": "d925215a7dbcaf813cabc8d83178e9f601c63b57",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Andyabih\\LaravelToUML\\LaravelToUMLServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelToUML": "Andyabih\\LaravelToUML\\Facades\\LaravelToUML"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Andyabih\\LaravelToUML\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andy Abi Haidar",
+                    "email": "andy@yllw.com"
+                }
+            ],
+            "description": "Automagically generate UML diagrams of your Laravel code.",
+            "support": {
+                "issues": "https://github.com/andyabih/laravel-to-uml/issues",
+                "source": "https://github.com/andyabih/laravel-to-uml/tree/1.0.3"
+            },
+            "time": "2021-04-07T07:32:11+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.5.0",
